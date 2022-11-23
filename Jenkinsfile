@@ -27,7 +27,8 @@ pipeline {
 
         stage('Formatting Checks') {
           steps {
-            build(job: quality_formatting]
+            build(job: quality_formatting,
+                  parameters: []
           ) // build job
         } // steps
       } // Stage: Formatting Checks
