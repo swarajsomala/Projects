@@ -25,13 +25,14 @@ pipeline {
           } // steps
         } // Stage: EOL Check
 
-        stage('Formatting Checks') {
+        stage('Formatting Check') {
           steps {
-            build(job: quality_formatting,
-                  parameters: []
-          ) // build job
-        } // steps
-      } // Stage: Formatting Checks
+            build(job: 'quality_formatting',
+              parameters: []
+            ) // build job
+          } // steps
+        } // Stage: EOL Check
+        
     } // parallel
   } // stage: Quality Checks
  }
