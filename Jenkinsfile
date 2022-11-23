@@ -1,26 +1,37 @@
-pipeline { 
-    agent any  
-    stages { 
-        stage('Build') { 
-            steps { 
-               echo 'This is a minimal pipeline.' 
-            }
-        }
-        stage('CPP Check') {
-            steps {
-                // First, reset the error counters to match master.
-                build( job: 'quality_cppcheck',
-                    propagate: false,
-                    parameters: [
-                        string(name: 'BRANCH_YL', value: 'master'),
-                        string(name: 'BRANCH_AA', value: 'master'),
-                        string(name: 'BRANCH_SA', value: 'master'),
-                        string(name: 'MERGE_FOR_YOCTO_LAYERS', value: 'master'),
-                        string(name: 'MERGE_FOR_ARA_API', value: 'master'),
-                        string(name: 'MERGE_FOR_SAMPLE_APPS', value: 'master')
-                    ]
-                ) // build job
-            } // steps
-        } // Stage: cpp check
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        echo 'This is a minimal pipeline.'
+      }
     }
+    stage('Quality Checks') {
+      parallel {
+        stage('CPP Check') {
+          steps {
+            build(job: 'quality_cppcheck',
+              propagate: false,
+              parameters: []
+            ) // build job
+          } // steps
+        } // Stage: cpp check
+
+        stage('EOL Check') {
+          steps {
+            build(job: 'quality_eol-disclaimer',
+              parameters: []
+            ) // build job
+          } // steps
+        } // Stage: EOL Check
+
+        stage('Formatting Checks') {
+          steps {
+            build(job: ]
+          ) // build job
+        } // steps
+      } // Stage: Formatting Checks
+    } // parallel
+  } // stage: Quality Checks
+ }
 }
