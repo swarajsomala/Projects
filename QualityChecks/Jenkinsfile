@@ -7,7 +7,6 @@ pipeline {
                 sh """#!/bin/bash -xe
                     echo "hello From EOL"
                     sleep 2
-                    exit 1
                     """
             }
         }
