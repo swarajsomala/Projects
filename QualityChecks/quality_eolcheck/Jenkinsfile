@@ -2,13 +2,27 @@ pipeline {
     agent any
 
     stages {
-        stage('EOL') {
+        stage('Checkout') {
+            steps {
+                echo 'Checkout Step'
+            } // steps
+        } // stage: Checkout
+
+        stage('Check') {
+            agent {
+                dockerfile {
+                    dir 'yocto-layers/docker/native'
+                    filename 'Dockerfile'
+                    reuseNode true
+                    args '-v/var/lib/jenkins/yocto:/var/lib/jenkins/yocto'
+              } // dockerfile
+            } // agent
+
             steps {
                 sh """#!/bin/bash -xe
-                    echo "hello From EOL Check"
-                    sleep 2
-                    """
-            }
-        }
-    }
-}
+                  echo 'Quality EOL'
+                """
+            } // steps
+        } // Stage: Check
+    } // stages
+} // pipeline
