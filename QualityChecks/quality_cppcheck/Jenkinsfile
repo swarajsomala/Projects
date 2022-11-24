@@ -5,7 +5,7 @@ pipeline {
         stage('EOL') {
             steps {
                 sh """#!/bin/bash -xe
-                    echo "hello From EOL"
+                    echo "hello From CPP Check"
                     sleep 2
                     """
             }
