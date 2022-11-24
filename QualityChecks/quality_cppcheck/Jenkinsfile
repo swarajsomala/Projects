@@ -1,14 +1,30 @@
 pipeline {
-    agent any
+    agent {
+        label 'build'
+    }
 
     stages {
-        stage('EOL') {
+        stage('Checkout') {
+            steps {
+                echo 'Checkout Step'
+            } // steps
+        } // stage: Checkout
+
+        stage('Check') {
+            agent {
+                dockerfile {
+                    dir 'yocto-layers/docker/native'
+                    filename 'Dockerfile'
+                    reuseNode true
+                    args '-v/var/lib/jenkins/yocto:/var/lib/jenkins/yocto'
+              } // dockerfile
+            } // agent
+
             steps {
                 sh """#!/bin/bash -xe
-                    echo "hello From CPP Check"
-                    sleep 2
-                    """
-            }
-        }
-    }
-}
+                  echo 'cppcheck'
+                """
+            } // steps
+        } // Stage: Check
+    } // stages
+} // pipeline
