@@ -32,6 +32,14 @@ pipeline {
             ) // build job
           } // steps
         } // Stage: EOL Check
+
+        stage('Native Build') {
+          steps {
+            build(job: 'Build-Native',
+              parameters: []
+            ) // build job
+          } // steps
+        } // Stage: EOL Check
         
     } // parallel
   } // stage: Quality Checks
