@@ -21,8 +21,6 @@ pipeline {
             steps {
                 sh """#!/bin/bash -xe
                   echo 'Native Build'
-                  echo "$USER"
-                  ls
                 """
             } // steps
         } // Stage: Check
